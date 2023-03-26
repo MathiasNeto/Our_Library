@@ -1,6 +1,15 @@
 package com.ourlibrary.project_library.entities;
 
-public class Teacher extends Users {
-    private String course_name;
-    private Area area;
+import com.ourlibrary.project_library.enuns.Area;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "tb_teacher")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Teacher extends Users{
+    @ManyToOne
+    private Course course;
 }

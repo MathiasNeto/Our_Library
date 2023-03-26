@@ -1,6 +1,17 @@
 package com.ourlibrary.project_library.entities;
 
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "tb_students")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student extends Users {
-    private String course_name;
-    private Integer period;
+    @ManyToOne
+    private Course course;
 }

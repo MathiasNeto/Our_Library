@@ -1,6 +1,6 @@
 package com.ourlibrary.project_library.entities;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Embeddable
