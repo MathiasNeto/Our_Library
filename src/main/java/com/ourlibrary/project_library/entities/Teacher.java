@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher extends Users{
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "library_id")
+//    private Library library;
     @ManyToOne
     private Course course;
 }

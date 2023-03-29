@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student extends Users {
+
+//    @ManyToOne
+//    @JoinColumn(name = "library_id")
+//    private Library library;
     @ManyToOne
     private Course course;
 }

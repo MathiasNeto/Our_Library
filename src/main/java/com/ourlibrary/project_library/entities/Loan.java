@@ -21,6 +21,7 @@ public class Loan { //Emprestimo
     private Teacher teacher;
 
     private LocalDate date;
-    @ManyToMany
+    @OneToMany
+    @JoinColumn(name = "loan_id")
     private List<Book> books;
 }

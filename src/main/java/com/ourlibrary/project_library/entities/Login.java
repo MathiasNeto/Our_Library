@@ -16,6 +16,7 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String registration;
     private String pass;
 }

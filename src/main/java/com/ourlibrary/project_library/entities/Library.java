@@ -21,12 +21,20 @@ public class Library {
     private String library_name;
     @Size(min = 3)
     private String institution_name;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "library_id")
     private Librarian librarian;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "library_id")
     private List<Book> books;
+//    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL) //se o cascade aqui esta certo, pq pra mim nao faz
+//    sentido eu apagando a biblioteca o usuario seja removido
+//    private List<Teacher> teachers;
+//    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL) //Aqui tbm
+//    private List<Student> students;
+
     @OneToMany
-    private List<Teacher> teachers;
-    @OneToMany
-    private List<Student> students;
+    @JoinColumn(name = "library_id")
+    private List<Users> users;
 }

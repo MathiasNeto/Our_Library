@@ -23,21 +23,19 @@ public abstract class Users {
     @NotBlank
     @Size(min = 3)
     private String name;
-    @Embedded
-    @JoinColumn(name = "gender")
+//    @NotBlank
+//    @Size(min = 3)
+//    private String lastname;
+    @Column(name = "area")
+    @Enumerated(EnumType.STRING)
     private EnumGender enumGender;
-    private Integer registration; //matricula;
     @Embedded
-    @JoinColumn(name = "address")
     private Adress adress;
     @Embedded
-    @OneToMany
-    @JoinColumn(name = "contact_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private List<Contact> contact;
-    @OneToOne
-    @JoinColumn(name = "login_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private Login login;
-
-
-
 }

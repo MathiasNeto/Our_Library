@@ -1,6 +1,6 @@
 package com.ourlibrary.project_library.Controllers;
 
-import com.ourlibrary.project_library.dto.StudentDTO;
+import com.ourlibrary.project_library.dto.UserDTO;
 import com.ourlibrary.project_library.entities.Student;
 import com.ourlibrary.project_library.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/student")
-public class UserController {
+public class StudentController {
     @Autowired
     private StudentService service;
 
@@ -20,9 +20,13 @@ public class UserController {
     public ResponseEntity<Student> insert(@RequestBody Student student){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(student));
     }
-    @GetMapping
-    public ResponseEntity<List<StudentDTO>> findAll(){
-        List<StudentDTO> studentDTOList = service.findAll();
-        return ResponseEntity.ok(studentDTOList);
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<UserDTO>> findAll(){
+        List<UserDTO> userDTOList = service.findAll();
+        return ResponseEntity.ok(userDTOList);
+    }
+    @GetMapping(value = "/findById/{id}")
+    public ResponseEntity<Student> findById(@PathVariable Long id){
+        return ResponseEntity.ok(service.findById(id));
     }
 }

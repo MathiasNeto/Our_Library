@@ -8,18 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDTO {
+public class UserDTO {
     private String name;
     private EnumGender gender;
     private Adress adress;
     private List<Contact> contactList;
 
-    public StudentDTO(Student student){
+    public UserDTO(Student student){
         name = student.getName();
         gender = student.getEnumGender();
         adress = student.getAdress();

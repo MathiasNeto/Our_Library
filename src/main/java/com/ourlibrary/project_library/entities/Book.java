@@ -19,7 +19,16 @@ public class Book {
     private String book_name ;
     @Id
     private String isbn;
-    @Embedded
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "loan_id")
+//    private Loan loan;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "library_id")
+//    private Library library;
+    @Column(name = "area")
+    @Enumerated(EnumType.STRING)
     private Area area;
 
 }
