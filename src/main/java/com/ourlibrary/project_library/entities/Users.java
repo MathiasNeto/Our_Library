@@ -36,6 +36,5 @@ public abstract class Users {
     @JoinColumn(name = "user_id")
     private List<Contact> contact;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private Login login;
 }
