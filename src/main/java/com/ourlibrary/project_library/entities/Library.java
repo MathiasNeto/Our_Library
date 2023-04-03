@@ -1,40 +1,43 @@
 package com.ourlibrary.project_library.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 
+
+import java.util.ArrayList;
 import java.util.List;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "tb_library")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 3)
+    @NotBlank(message = "the library_name field must not be blank")
+    @NotNull(message = "the library_name field must not be null")
     private String library_name;
-    @Size(min = 3)
+    @NotBlank(message = "the institution_name field must not be blank")
+    @NotNull(message = "the institution_name field must not be null")
     private String institution_name;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "library_id")
+    @JoinColumn(name = "Librarian_id")
     private Librarian librarian;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "library_id")
-    private List<Book> books;
-//    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL) //se o cascade aqui esta certo, pq pra mim nao faz
-//    sentido eu apagando a biblioteca o usuario seja removido
-//    private List<Teacher> teachers;
-//    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL) //Aqui tbm
-//    private List<Student> students;
+    private List<Book> books = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Library_id")
+   private List<Teacher> teachers;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Library_id")
+    private List<Student> students;
 
-    @OneToMany
-    @JoinColumn(name = "library_id")
-    private List<Users> users;
 }

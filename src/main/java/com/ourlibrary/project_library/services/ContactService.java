@@ -1,28 +1,35 @@
 package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Contact;
-import com.ourlibrary.project_library.entities.Course;
+import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.repositories.ContactRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ContactService {
-
-    @Autowired
-    private ContactRepository repository;
+    private final ContactRepository contactRepository;
 
     public Contact insert(Contact contact){
-        return repository.save(contact);
+        return contactRepository.save(contact);
     }
 
     public List<Contact> findAll() {
-        return repository.findAll();
+        return contactRepository.findAll();
     }
 
-    public Contact findById(Long id) {
-        return repository.findById(id).get();
+    public Contact findById( Long id) {
+        return contactRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Id not found"));
+    }
+    public void delete(Long id){
+        if(contactRepository.findById(id).isPresent()){
+            contactRepository.deleteById(id);
+        }else{
+            throw new ObjectNotFoundException("Id not found");
+        }
+
     }
 }

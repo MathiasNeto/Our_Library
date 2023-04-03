@@ -3,6 +3,7 @@ package com.ourlibrary.project_library.dto;
 import com.ourlibrary.project_library.entities.Adress;
 import com.ourlibrary.project_library.entities.Contact;
 import com.ourlibrary.project_library.entities.Student;
+import com.ourlibrary.project_library.entities.Users;
 import com.ourlibrary.project_library.enuns.EnumGender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,11 @@ public class UserDTO {
     private Adress adress;
     private List<Contact> contactList;
 
-    public UserDTO(Student student){
-        name = student.getName();
-        gender = student.getEnumGender();
-        adress = student.getAdress();
-        contactList = student.getContact();
+    public UserDTO(Users users){
+        name = users.getName_user();
+        gender = users.getEnumGender();
+        adress = users.getAdress();
+        contactList = users.getContactList();
     }
 
 }
