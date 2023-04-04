@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LibraryService {
     private final LibraryRepository libraryRepository;
-    private LoanRepository loanRepository
+    private LoanRepository loanRepository;
 
     public Library insert(Library library){
 //        Loan loan = loanRepository.findById()
