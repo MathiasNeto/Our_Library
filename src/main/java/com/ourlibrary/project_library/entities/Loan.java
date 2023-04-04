@@ -18,14 +18,14 @@ public class Loan { //Emprestimo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Student student;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Teacher teacher;
-    @NotBlank(message = "the loan_date field must not be blank")
-    @NotNull(message = "the loan_date field must not be null")
+//    @NotBlank(message = "the loan_date field must not be blank")
+//    @NotNull(message = "the loan_date field must not be null")
     private LocalDate loanDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "loan_id")
+    @OneToOne
+    @JoinColumn(name = "book_id")
     private Book book;
 }

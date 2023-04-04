@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.services;
 
+import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.repositories.LibrarianRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,5 +13,8 @@ public class LibrarianService {
 
     public Librarian insert(Librarian librarian){
         return librarianRepository.save(librarian);
+    }
+    public void getById(Long id){
+        librarianRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Id not found"));
     }
 }

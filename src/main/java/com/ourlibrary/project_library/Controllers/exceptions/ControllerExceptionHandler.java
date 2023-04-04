@@ -2,6 +2,7 @@ package com.ourlibrary.project_library.Controllers.exceptions;
 
 import com.ourlibrary.project_library.exceptions.StandardError;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
@@ -46,7 +48,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<StandardError> handleException(SQLIntegrityConstraintViolationException ex,HttpServletRequest request) {
+    public ResponseEntity<StandardError> handleException(SQLIntegrityConstraintViolationException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(StandardError.builder()
                 .status(HttpStatus.NO_CONTENT.value())
                 .error("erro de parametro")
@@ -57,4 +59,18 @@ public class ControllerExceptionHandler {
                         LocalDateTime.now
                                 ()).build());
     }
+
+//    @ExceptionHandler(EntityNotFoundException.class)
+//    public ResponseEntity<StandardError> handleEntityNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
+//        HttpStatus status = HttpStatus.NOT_FOUND;
+//        StandardError err = StandardError.builder()
+//                .timestamp(LocalDateTime.now())
+//                .status(status.value())
+//                .error("Não foi possível encontrar o bibliotecário")
+//                .message(e.getMessage())
+//                .path(request.getRequestURI())
+//                .build();
+//        return ResponseEntity.status(status).body(err);
+//    }
+
 }

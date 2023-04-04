@@ -2,9 +2,8 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
-import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.entities.Library;
-import com.ourlibrary.project_library.repositories.bookRepository;
+import com.ourlibrary.project_library.repositories.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
@@ -19,7 +18,7 @@ import java.util.Optional;
 
 public class BookService {
 
-    private final bookRepository bookRepository;
+    private final BookRepository bookRepository;
     private Validator validator;
 
     private Library library;
@@ -38,26 +37,31 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book findById(Long id) {
-        return bookRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("id " + id + " Not FOUND"));
+    public Book findById(String isbn) {
+        return bookRepository.findById(String.valueOf(isbn)).orElseThrow(() -> new ObjectNotFoundException("id " + isbn +
+                " Not FOUND"));
         //depois
         // criar o dto se precisar
     }
 
-    public void deleteBookById(Long id) {
-        Optional<Book> bookOptional = bookRepository.findById(id);
+    public void deleteBookById(String isbn) {
+        Optional<Book> bookOptional = bookRepository.findById(isbn);
         if (bookOptional.isPresent()) {
             bookRepository.delete(bookOptional.get());
         } else {
-            throw new EntityNotFoundException("Book with id " + id + " not found.");
+            throw new EntityNotFoundException("Book with id " + isbn + " not found.");
         }
     }
 
-//    public void updateBook( Long id){
-//        Book book = new Book();
-//        book.setBook_name(book.getBook_name());
-//        book.setArea(book.getArea());
-//        book.setIsbn(book.getBook_name());
-//        bookRepository.save(book);
-//    }
+    public Book updateBook(@Valid Book updatedBook) {
+        Book existingBook = bookRepository.findByIsbn(updatedBook.getIsbn())
+                .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + updatedBook.getIsbn() + " not found."));
+
+        existingBook.setName(updatedBook.getName());
+        existingBook.setArea(updatedBook.getArea());
+        existingBook.setIsbn(updatedBook.getIsbn());
+
+        return bookRepository.save(existingBook);
+    }
+
 }

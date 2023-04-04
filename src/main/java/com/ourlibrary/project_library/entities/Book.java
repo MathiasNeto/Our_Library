@@ -17,20 +17,14 @@ public class Book {
     @NotNull(message = "the book_name field must not be null")
     private String name;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotBlank(message = "the isbn field must not be blank")
-    @NotNull(message = "the isbn field must not be null")
     private String isbn;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "loan_id")
 //    private Loan loan;
-
-//    @ManyToOne
-//    @JoinColumn(name = "book_id")
-//    private Library library;
     @Column(name = "area")
     @Enumerated(EnumType.STRING)
     private Area area;
+
+    private Boolean isAvailable;
 
 }

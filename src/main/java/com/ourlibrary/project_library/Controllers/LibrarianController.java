@@ -80,15 +80,22 @@ public class LibrarianController {
         return ResponseEntity.ok(bookList);
     }
 
-    @GetMapping(value = "/books/{id}")
-    public ResponseEntity<Book> getBook(@PathVariable @Valid Long id) {
-        return ResponseEntity.ok(bookService.findById(id));
+    @GetMapping(value = "/books/{isbn}")
+    public ResponseEntity<Book> getBook(@PathVariable @Valid String isbn) {
+        return ResponseEntity.ok(bookService.findById(isbn));
     }
 
-    @DeleteMapping("/books/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        bookService.deleteBookById(id);
+    @DeleteMapping("/books/{isbn}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String isbn) {
+        bookService.deleteBookById(isbn);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/bookUpdate/{isbn}")
+    public ResponseEntity<Book> updateBook(@PathVariable String isbn, @Valid @RequestBody Book book) {
+        book.setIsbn(isbn);
+        Book updatedBook = bookService.updateBook(book);
+        return ResponseEntity.ok(updatedBook);
     }
 
 
