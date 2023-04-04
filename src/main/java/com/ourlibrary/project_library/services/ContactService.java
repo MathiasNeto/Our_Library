@@ -30,6 +30,5 @@ public class ContactService {
         }else{
             throw new ObjectNotFoundException("Id not found");
         }
-
     }
 }

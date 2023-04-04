@@ -25,7 +25,6 @@ public class LoanService {
         book.setIsAvailable(false);
         return loanRepository.save(loan);
     }
-
     public List<Loan> findAll() {
         return loanRepository.findAll();
     }
