@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.Controllers;
 
+import com.ourlibrary.project_library.dto.BookDTO;
 import com.ourlibrary.project_library.dto.UserDTO;
 import com.ourlibrary.project_library.entities.*;
 import com.ourlibrary.project_library.services.*;
@@ -21,6 +22,8 @@ public class LibrarianController {
     private final BookService bookService;
     private final ContactService contactService;
     private final LoanService loanService;
+    private final TeacherService teacherService;
+    private final DevolutionService devolutionService;
 
     private Validator validator;
 
@@ -36,9 +39,14 @@ public class LibrarianController {
         return ResponseEntity.status(HttpStatus.OK).body(userDTOList);
     }
 
-    @GetMapping(value = "/students/{id}")
+    @GetMapping(value = "/getStudents/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable @Valid Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.findById(id));
+    }
+
+    @PostMapping(value = "/teacher")
+    public ResponseEntity<Teacher> insertTeacher(@RequestBody @Valid Teacher teacher){
+        return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.insert(teacher));
     }
 
 
@@ -48,7 +56,7 @@ public class LibrarianController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(courseList);
     }
 
-    @GetMapping(value = "/courses/{id}")
+    @GetMapping(value = "/getCourses/{id}")
     public ResponseEntity<Course> getCourse(@PathVariable @Valid Long id) {
         return ResponseEntity.ok(courseService.findById(id));
     }
@@ -58,7 +66,7 @@ public class LibrarianController {
         return ResponseEntity.ok((Contact) contactService.findAll());
     }
 
-    @GetMapping(value = "/contacts/{id}")
+    @GetMapping(value = "/getContacts/{id}")
     public ResponseEntity<List<Contact>> getContact(@PathVariable @Valid Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.findAll());
     }
@@ -80,8 +88,8 @@ public class LibrarianController {
         return ResponseEntity.ok(bookList);
     }
 
-    @GetMapping(value = "/books/{isbn}")
-    public ResponseEntity<Book> getBook(@PathVariable @Valid String isbn) {
+    @GetMapping(value = "/getBooks/{isbn}")
+    public ResponseEntity<BookDTO> getBook(@PathVariable @Valid String isbn) {
         return ResponseEntity.ok(bookService.findById(isbn));
     }
 
@@ -103,4 +111,9 @@ public class LibrarianController {
     public ResponseEntity<Loan> accomplish(@RequestBody Loan loan){
         return ResponseEntity.status(HttpStatus.OK).body(loanService.insert(loan));
     }
+    @PostMapping(value = "/Devolution")
+    public ResponseEntity<Devolution> accomplish(@RequestBody Devolution devolution){
+        return ResponseEntity.status(HttpStatus.OK).body(devolutionService.insert(devolution));
+    }
+
 }

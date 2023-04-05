@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.services;
 
+import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Contact;
 import com.ourlibrary.project_library.entities.Devolution;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
@@ -9,6 +10,7 @@ import com.ourlibrary.project_library.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class DevolutionService {
         Loan loan = loanRepository.findById(devolution.getLoan().getId())
                 .orElseThrow(()->new ObjectNotFoundException("Loan not found"));
         devolution.setLoan(loan);
+        devolution.setDevolution_date(loan.getLoanDate().plusDays(5));
         return devolutionRepository.save(devolution);
     }
 

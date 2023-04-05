@@ -1,30 +1,33 @@
 package com.ourlibrary.project_library.services;
 
+import com.ourlibrary.project_library.dto.BookDTO;
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.entities.Library;
 import com.ourlibrary.project_library.repositories.BookRepository;
+import com.ourlibrary.project_library.repositories.LibrarianRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class BookService {
 
     private final BookRepository bookRepository;
     private Validator validator;
 
-    private Library library;
+
 
     public Book insert(@Valid Book book) {
-
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new ObjectNotFoundException("ISBN duplicator: " + book.getIsbn());
         }
@@ -37,11 +40,12 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book findById(String isbn) {
-        return bookRepository.findById(String.valueOf(isbn)).orElseThrow(() -> new ObjectNotFoundException("id " + isbn +
+    @Transactional(readOnly = true) //Diz que é só uma operacao de leitura no banco, isso deixa a consulta mais rapida
+    public BookDTO findById(String isbn) {
+        Book book = bookRepository.findById(isbn).orElseThrow(() -> new ObjectNotFoundException(
+                "id " + isbn +
                 " Not FOUND"));
-        //depois
-        // criar o dto se precisar
+        return new BookDTO(book);
     }
 
     public void deleteBookById(String isbn) {

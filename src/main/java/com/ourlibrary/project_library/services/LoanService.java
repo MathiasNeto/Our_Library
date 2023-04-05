@@ -2,9 +2,11 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Contact;
+import com.ourlibrary.project_library.entities.Devolution;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Loan;
 import com.ourlibrary.project_library.repositories.BookRepository;
+import com.ourlibrary.project_library.repositories.DevolutionRepository;
 import com.ourlibrary.project_library.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,28 +19,33 @@ public class LoanService {
 
     private final LoanRepository loanRepository;
     private final BookRepository bookRepository;
+    private final DevolutionRepository devolutionRepository;
 
     public Loan insert(Loan loan){
+
         Book book = bookRepository.findByIsbn(loan.getBook().getIsbn())
                 .orElseThrow(()-> new ObjectNotFoundException("Book not found"));
-        loan.setBook(book);
+        if (!book.getIsAvailable()){ //Verifica se o livro nao esta disponivel, se tiver disponivel o if nao entra
+            throw new ObjectNotFoundException("Book is not available for loan");
+        }
         book.setIsAvailable(false);
+        bookRepository.save(book);
         return loanRepository.save(loan);
+
     }
     public List<Loan> findAll() {
         return loanRepository.findAll();
     }
 
     public Loan findById( Long id) {
-
         return loanRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Id not found"));
     }
-//    public void delete(Long id){
-//        if(loanRepository.findById(id).isPresent()){
-//            loanRepository.deleteById(id);
-//        }else{
-//            throw new ObjectNotFoundException("Id not found");
-//        }
-//
-//    }
+    public void delete(Long id){
+        if(loanRepository.findById(id).isPresent()){
+            loanRepository.deleteById(id);
+        }else{
+            throw new ObjectNotFoundException("Id not found");
+        }
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.services;
 
+import com.ourlibrary.project_library.dto.TeacherDTO;
 import com.ourlibrary.project_library.dto.UserDTO;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Teacher;
@@ -19,11 +20,10 @@ public class TeacherService {
     public Teacher insert(Teacher teacher){
         return repository.save(teacher);
     }
-//    public List<UserDTO> findAll (){
-//        List<Teacher> list = repository.findAll();
-//        return list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
-//    }
-    //Adicionar o construtor la em userdto para teatcher e descomentar.
+    public List<TeacherDTO> findAll (){
+        List<Teacher> list = repository.findAll();
+        return list.stream().map(TeacherDTO::new).collect(Collectors.toList());
+    }
 
     public Teacher findById( Long id) {
         return repository.findById(id).orElseThrow(()->new ObjectNotFoundException("Entity not found"));

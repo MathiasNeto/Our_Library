@@ -2,6 +2,7 @@ package com.ourlibrary.project_library.entities;
 
 import com.ourlibrary.project_library.enuns.Area;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,7 +25,7 @@ public class Book {
     @Column(name = "area")
     @Enumerated(EnumType.STRING)
     private Area area;
-
+    @NotNull(message = "the isAvailable field must not be null")
     private Boolean isAvailable;
 
 }

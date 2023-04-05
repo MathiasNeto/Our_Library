@@ -40,4 +40,12 @@ public abstract class Users {
     private List<Contact> contactList;
     @OneToOne(cascade = CascadeType.ALL)
     private Login login;
+    public boolean hasEmail(String email) {
+        for (Contact contact : contactList) {
+            if (contact.getGmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

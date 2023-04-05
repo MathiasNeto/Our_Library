@@ -18,8 +18,9 @@ public class Devolution {
     private Long id;
     @OneToOne
     private Loan loan;
-    @NotBlank(message = "the devolution_date field must not be blank")
-    @NotNull(message = "the devolution_date field must not be null")
+
+    //@NotNull(message = "the devolution_date field must not be null")
     private LocalDate devolution_date;
+//    private Integer price;
 
 }

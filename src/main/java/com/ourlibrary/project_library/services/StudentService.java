@@ -1,11 +1,10 @@
 package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.dto.UserDTO;
-import com.ourlibrary.project_library.entities.Course;
-import com.ourlibrary.project_library.entities.Librarian;
-import com.ourlibrary.project_library.entities.Library;
-import com.ourlibrary.project_library.entities.Student;
+import com.ourlibrary.project_library.entities.*;
+import com.ourlibrary.project_library.repositories.ContactRepository;
 import com.ourlibrary.project_library.repositories.CourseRespository;
+import com.ourlibrary.project_library.repositories.LibrarianRepository;
 import com.ourlibrary.project_library.repositories.StudentRepository;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-
     private final CourseRespository courseRespository;
+    private final ContactRepository contactRepository;
 
     public Student insert(Student student) {
 

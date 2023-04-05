@@ -13,6 +13,7 @@ import java.util.List;
 public class UserDTO {
     private String name;
     private EnumGender gender;
+    private String period_Course;
     private String road;
     private String number;
     private String city;
@@ -34,8 +35,8 @@ public class UserDTO {
             gmail = student.getContactList().get(i).getGmail();
             telephone = student.getContactList().get(i).getTelephone();
         }
+        period_Course = student.getPeriod_course();
         area = String.valueOf(student.getCourse().getArea());
         name_Course = student.getCourse().getName_Course();
     }
-
 }
