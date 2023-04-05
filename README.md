@@ -109,6 +109,3 @@ POST's
     }
 }
 
-
-DELETES
--deletar book
