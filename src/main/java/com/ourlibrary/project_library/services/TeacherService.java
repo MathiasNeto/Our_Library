@@ -19,10 +19,11 @@ public class TeacherService {
     public Teacher insert(Teacher teacher){
         return repository.save(teacher);
     }
-    public List<UserDTO> findAll (){
-        List<Teacher> list = repository.findAll();
-        return list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
-    }
+//    public List<UserDTO> findAll (){
+//        List<Teacher> list = repository.findAll();
+//        return list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+//    }
+    //Adicionar o construtor la em userdto para teatcher e descomentar.
 
     public Teacher findById( Long id) {
         return repository.findById(id).orElseThrow(()->new ObjectNotFoundException("Entity not found"));

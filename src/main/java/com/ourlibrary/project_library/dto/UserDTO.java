@@ -21,22 +21,21 @@ public class UserDTO {
     private String gmail;
     private String name_Course;
     private String area;
-    private Course course;
-    private Adress adress;
     private String telephone;
-    private Contact contact;
-    public UserDTO(Users users){
-        name = users.getName_user();
-        gender = users.getEnumGender();
-        road = adress.getRoad();
-        number = adress.getNumber();
-        city = adress.getCity();
-        uf = adress.getUf();
-        neighborhood = adress.getNeighborhood();
-        gmail = contact.getGmail();
-        telephone = contact.getTelephone();
-        area = String.valueOf(course.getArea());
-        name_Course = course.getName_Course();
+    public UserDTO(Student student){
+        name = student.getName_user();
+        gender = student.getEnumGender();
+        road = student.getAdress().getRoad();
+        number = student.getAdress().getNumber();
+        city = student.getAdress().getCity();
+        uf = student.getAdress().getUf();
+        neighborhood = student.getAdress().getNeighborhood();
+        for (int i = 0; i < student.getContactList().size(); i++) {
+            gmail = student.getContactList().get(i).getGmail();
+            telephone = student.getContactList().get(i).getTelephone();
+        }
+        area = String.valueOf(student.getCourse().getArea());
+        name_Course = student.getCourse().getName_Course();
     }
 
 }
