@@ -3,15 +3,13 @@ package com.ourlibrary.project_library.entities;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 @Embeddable
 @Data
 
-public class Adress {
+public class Address {
     @NotBlank(message = "the street field must not be blank")
     @NotNull(message = "the street field must not be null")
     private String road; //rua

@@ -1,6 +1,5 @@
 package com.ourlibrary.project_library.dto;
 
-import com.ourlibrary.project_library.entities.Student;
 import com.ourlibrary.project_library.entities.Teacher;
 import com.ourlibrary.project_library.enuns.EnumGender;
 import lombok.Data;
@@ -21,13 +20,13 @@ public class TeacherDTO {
     public TeacherDTO(Teacher teacher){
         name = teacher.getName_user();
         gender = teacher.getEnumGender();
-        road = teacher.getAdress().getRoad();
-        number = teacher.getAdress().getNumber();
-        city = teacher.getAdress().getCity();
-        uf = teacher.getAdress().getUf();
-        neighborhood = teacher.getAdress().getNeighborhood();
+        road = teacher.getAddress().getRoad();
+        number = teacher.getAddress().getNumber();
+        city = teacher.getAddress().getCity();
+        uf = teacher.getAddress().getUf();
+        neighborhood = teacher.getAddress().getNeighborhood();
         for (int i = 0; i < teacher.getContactList().size(); i++) {
-            gmail = teacher.getContactList().get(i).getGmail();
+            gmail = teacher.getContactList().get(i).getEmail();
             telephone = teacher.getContactList().get(i).getTelephone();
         }
         area = String.valueOf(teacher.getCourse().getArea());
