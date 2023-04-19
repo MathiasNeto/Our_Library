@@ -6,11 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class StudentDTO {
     private String name;
     private EnumGender gender;
     private String period_Course;
@@ -23,20 +22,20 @@ public class UserDTO {
     private String name_Course;
     private String area;
     private String telephone;
-    public UserDTO(Student student){
+    public StudentDTO(Student student){
         name = student.getName_user();
         gender = student.getEnumGender();
-        road = student.getAdress().getRoad();
-        number = student.getAdress().getNumber();
-        city = student.getAdress().getCity();
-        uf = student.getAdress().getUf();
-        neighborhood = student.getAdress().getNeighborhood();
+        road = student.getAddress().getRoad();
+        number = student.getAddress().getNumber();
+        city = student.getAddress().getCity();
+        uf = student.getAddress().getUf();
+        neighborhood = student.getAddress().getNeighborhood();
         for (int i = 0; i < student.getContactList().size(); i++) {
-            gmail = student.getContactList().get(i).getGmail();
+            gmail = student.getContactList().get(i).getEmail();
             telephone = student.getContactList().get(i).getTelephone();
         }
         period_Course = student.getPeriod_course();
         area = String.valueOf(student.getCourse().getArea());
-        name_Course = student.getCourse().getName_Course();
+        name_Course = student.getCourse().getName();
     }
 }

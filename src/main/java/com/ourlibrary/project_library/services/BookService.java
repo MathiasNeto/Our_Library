@@ -3,14 +3,9 @@ package com.ourlibrary.project_library.services;
 import com.ourlibrary.project_library.dto.BookDTO;
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
-import com.ourlibrary.project_library.entities.Librarian;
-import com.ourlibrary.project_library.entities.Library;
+import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.repositories.BookRepository;
-import com.ourlibrary.project_library.repositories.LibrarianRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-import jakarta.validation.Validator;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +18,16 @@ import java.util.Optional;
 public class BookService {
 
     private final BookRepository bookRepository;
-    private Validator validator;
 
 
 
-    public Book insert(@Valid Book book) {
+    public Book insert(Book book)  {
+
         if (bookRepository.existsByIsbn(book.getIsbn())) {
-            throw new ObjectNotFoundException("ISBN duplicator: " + book.getIsbn());
+            throw new ObjetDuplicator("ISBN duplicator: " + book.getIsbn());
         }
-        else {
+
             return bookRepository.save(book);
-        }
     }
 
     public List<Book> findAll(Book book) {
@@ -57,7 +51,7 @@ public class BookService {
         }
     }
 
-    public Book updateBook(@Valid Book updatedBook) {
+    public Book updateBook(Book updatedBook) {
         Book existingBook = bookRepository.findByIsbn(updatedBook.getIsbn())
                 .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + updatedBook.getIsbn() + " not found."));
 

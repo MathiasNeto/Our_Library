@@ -1,11 +1,10 @@
 package com.ourlibrary.project_library.entities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 @Entity
 @Table(name = "tb_devolution")
@@ -21,6 +20,7 @@ public class Devolution {
 
     //@NotNull(message = "the devolution_date field must not be null")
     private LocalDate devolution_date;
-//    private Integer price;
+    private Double addition;
+    private Double price_Final;
 
 }

@@ -1,6 +1,5 @@
 package com.ourlibrary.project_library.Controllers;
 
-import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.entities.Library;
 import com.ourlibrary.project_library.services.LibrarianService;
@@ -10,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,11 +27,14 @@ public class Adm {
     }
 
     @PostMapping(value = "/Librarian")
-    public ResponseEntity<Librarian> save(@RequestBody Librarian librarian){
+    public ResponseEntity<Librarian> save(@RequestBody @Valid Librarian librarian){
         return ResponseEntity.status(HttpStatus.OK).body(librarianService.insert(librarian));
     }
 
-//    @GetMapping(value = "/getLibrarian")
+    @GetMapping(value = "/getLibrarian")
+    public ResponseEntity<Librarian> getLibrarian(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(librarianService.getById(id));
+    }
 
 
 }

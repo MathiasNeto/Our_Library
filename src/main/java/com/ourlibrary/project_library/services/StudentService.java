@@ -1,46 +1,69 @@
 package com.ourlibrary.project_library.services;
 
-import com.ourlibrary.project_library.dto.UserDTO;
-import com.ourlibrary.project_library.entities.*;
-import com.ourlibrary.project_library.repositories.ContactRepository;
-import com.ourlibrary.project_library.repositories.CourseRespository;
-import com.ourlibrary.project_library.repositories.LibrarianRepository;
-import com.ourlibrary.project_library.repositories.StudentRepository;
+import com.ourlibrary.project_library.dto.StudentDTO;
+import com.ourlibrary.project_library.entities.Course;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
+import com.ourlibrary.project_library.entities.Student;
+import com.ourlibrary.project_library.repositories.ContactRepository;
+import com.ourlibrary.project_library.repositories.CourseRepository;
+import com.ourlibrary.project_library.repositories.LoginRepository;
+import com.ourlibrary.project_library.repositories.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-    private final CourseRespository courseRespository;
     private final ContactRepository contactRepository;
-
-    public Student insert(Student student) {
-
-        Course course = student.getCourse(); // obtém o objeto Course do Student
-
-        if (course.getId() != null) { // verifica se o id do curso já existe
-            course = courseRespository.findById(course.getId())
-                    .orElseThrow(() -> new ObjectNotFoundException("Course not found"));
-        } else {
-            courseRespository.save(course); // salva o novo curso no banco de dados
+    private final LoginRepository loginRepository;
+    private final CourseRepository courseRepository;
+    public StudentDTO insert(Student student) {
+        Course course;
+//        Example<Course> courseExample = Example.of(course);
+        if (studentRepository.existsByCpf(student.getCpf())) {
+            throw new ObjetDuplicator("CPF UNIQUE");
         }
+        for (int i = 0; i < student.getContactList().size(); i++) {
+            student.getContactList().get(i).setUser(student);
 
+            if (contactRepository.existsByEmail(student.getContactList().get(i).getEmail())) {
+                throw new ObjetDuplicator("Email UNIQUE");
+            }
+        }
+        if(loginRepository.existsByRegistration(student.getLogin().getRegistration())){
+            throw new ObjetDuplicator("Registration UNIQUE");
+        }
+        // Busca o curso pelo nome e área
+        Optional<Course> optionalCourse =
+                courseRepository.findByAreaAndName(student.getCourse().getArea(), student.getCourse().getName());
+
+        if (optionalCourse.isPresent()) {
+            // Se o curso já existe, usa o curso encontrado
+            course = optionalCourse.get();
+        } else {
+            // Se o curso não existe, cria um novo curso
+            course = new Course();
+            course.setArea(student.getCourse().getArea());
+            course.setName(student.getCourse().getName());
+            course = courseRepository.save(course);
+        }
         student.setCourse(course);
-        return studentRepository.save(student);
+        studentRepository.save(student);
+        return new StudentDTO(student);
     }
 
-    public List<UserDTO> findAll (){
+    public List<StudentDTO> findAll() {
         List<Student> list = studentRepository.findAll();
-        return list.stream().map(UserDTO::new).collect(Collectors.toList());
+        return list.stream().map(StudentDTO::new).collect(Collectors.toList());
     }
 
-    public Student findById( Long id) {
-        return studentRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Id not found"));
+    public Student findById(Long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Id not found"));
     }
 }

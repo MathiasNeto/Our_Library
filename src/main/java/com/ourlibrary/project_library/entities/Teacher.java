@@ -11,9 +11,6 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Data
 public class Teacher extends Users{
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "library_id")
-//    private Library library;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Course course;
 }
