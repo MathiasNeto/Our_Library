@@ -18,10 +18,11 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "The area field must not be null")
     @Column(name = "area")
     @Enumerated(EnumType.STRING)
     private Area area;
     @NotBlank(message = "the name_course field must not be blank")
     @NotNull(message = "the loan_date field must not be null")
-    private String name_Course;
+    private String name;
 }

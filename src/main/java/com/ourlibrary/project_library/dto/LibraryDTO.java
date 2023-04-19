@@ -1,11 +1,10 @@
 package com.ourlibrary.project_library.dto;
 
-import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.entities.Library;
-import com.ourlibrary.project_library.enuns.EnumGender;
 import lombok.Data;
 
 @Data
+
 public class LibraryDTO {
     private String library_name;
     private String institution_name;

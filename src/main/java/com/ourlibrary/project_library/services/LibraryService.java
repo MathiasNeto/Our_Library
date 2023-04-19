@@ -13,7 +13,9 @@ public class LibraryService {
     private final LibraryRepository libraryRepository;
     private final StudentRepository studentRepository;
 
+
     public Library insert(Library library){
+
         if (library.getStudents() != null) {
             for (int i = 0; i < library.getStudents().size(); i++) {
                 if (!studentRepository.existsById(library.getStudents().get(i).getId())) {
@@ -21,6 +23,7 @@ public class LibraryService {
                 }
             }
         }
+
 
         return libraryRepository.save(library);
     }

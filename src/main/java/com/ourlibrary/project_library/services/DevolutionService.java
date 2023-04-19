@@ -8,6 +8,8 @@ import com.ourlibrary.project_library.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -21,7 +23,14 @@ public class DevolutionService {
         Loan loan = loanRepository.findById(devolution.getLoan().getId())
                 .orElseThrow(()->new ObjectNotFoundException("Loan not found"));
         devolution.setLoan(loan);
-        devolution.setDevolution_date(loan.getLoanDate().plusDays(5));
+        devolution.setAddition(2.5);
+        devolution.setDevolution_date(LocalDate.now());
+        Period period = Period.between(loan.getLoanDate(), devolution.getDevolution_date());
+        Double price_final = period.getDays() * devolution.getAddition();
+        devolution.setPrice_Final(
+            price_final
+        );
+
         return devolutionRepository.save(devolution);
     }
 

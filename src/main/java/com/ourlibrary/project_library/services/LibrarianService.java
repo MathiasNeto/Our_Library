@@ -5,6 +5,7 @@ import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.repositories.ContactRepository;
 import com.ourlibrary.project_library.repositories.LibrarianRepository;
+import com.ourlibrary.project_library.repositories.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,20 @@ import org.springframework.stereotype.Service;
 public class LibrarianService {
     private final LibrarianRepository librarianRepository;
     private final ContactRepository contactRepository;
+    private final LoginRepository loginRepository;
 
     public Librarian insert(Librarian librarian){
+        if(librarianRepository.existsByCpf(librarian.getCpf())){
+            throw new ObjetDuplicator("CPF UNIQUE");
+        }
         for (int i = 0; i < librarian.getContactList().size(); i++) {
             if (contactRepository.
                     existsByEmail(librarian.getContactList().get(i).getEmail())){
                 throw new ObjetDuplicator("Email UNIQUE");
             }
         }
-        if(librarianRepository.existsByCpf(librarian.getCpf())){
-            throw new ObjetDuplicator("CPF UNIQUE");
+        if(loginRepository.existsByRegistration(librarian.getLogin().getRegistration())){
+            throw new ObjetDuplicator("Registration UNIQUE");
         }
         librarian.getContactList().get(0).setUser(librarian);
         return librarianRepository.save(librarian);

@@ -1,15 +1,19 @@
 package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.dto.StudentDTO;
+import com.ourlibrary.project_library.entities.Course;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.entities.Student;
 import com.ourlibrary.project_library.repositories.ContactRepository;
+import com.ourlibrary.project_library.repositories.CourseRepository;
+import com.ourlibrary.project_library.repositories.LoginRepository;
 import com.ourlibrary.project_library.repositories.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,7 +21,14 @@ import java.util.stream.Collectors;
 public class StudentService {
     private final StudentRepository studentRepository;
     private final ContactRepository contactRepository;
+    private final LoginRepository loginRepository;
+    private final CourseRepository courseRepository;
     public StudentDTO insert(Student student) {
+        Course course;
+//        Example<Course> courseExample = Example.of(course);
+        if (studentRepository.existsByCpf(student.getCpf())) {
+            throw new ObjetDuplicator("CPF UNIQUE");
+        }
         for (int i = 0; i < student.getContactList().size(); i++) {
             student.getContactList().get(i).setUser(student);
 
@@ -25,28 +36,26 @@ public class StudentService {
                 throw new ObjetDuplicator("Email UNIQUE");
             }
         }
-        if (studentRepository.existsByCpf(student.getCpf())) {
-            throw new ObjetDuplicator("CPF Duplicator " + student.getCpf());
+        if(loginRepository.existsByRegistration(student.getLogin().getRegistration())){
+            throw new ObjetDuplicator("Registration UNIQUE");
         }
+        // Busca o curso pelo nome e área
+        Optional<Course> optionalCourse =
+                courseRepository.findByAreaAndName(student.getCourse().getArea(), student.getCourse().getName());
 
-        StudentDTO dto = new StudentDTO();
-        dto.setArea(String.valueOf(student.getCourse().getArea()));
-        dto.setName(student.getName_user());
-        dto.setCity(student.getAddress().getCity());
-        dto.setUf(student.getAddress().getUf());
-        for (int i = 0; i < student.getContactList().size(); i++) {
-            dto.setGmail(student.getContactList().get(i).getEmail());
-            dto.setTelephone(student.getContactList().get(i).getTelephone());
+        if (optionalCourse.isPresent()) {
+            // Se o curso já existe, usa o curso encontrado
+            course = optionalCourse.get();
+        } else {
+            // Se o curso não existe, cria um novo curso
+            course = new Course();
+            course.setArea(student.getCourse().getArea());
+            course.setName(student.getCourse().getName());
+            course = courseRepository.save(course);
         }
-        dto.setGender(student.getEnumGender());
-        dto.setRoad(student.getAddress().getRoad());
-        dto.setNeighborhood(student.getAddress().getNeighborhood());
-        dto.setName_Course(student.getCourse().getName_Course());
-        dto.setPeriod_Course(student.getPeriod_course());
-        dto.setNumber(student.getAddress().getNumber());
-        student.setCourse(student.getCourse());
+        student.setCourse(course);
         studentRepository.save(student);
-        return dto;
+        return new StudentDTO(student);
     }
 
     public List<StudentDTO> findAll() {

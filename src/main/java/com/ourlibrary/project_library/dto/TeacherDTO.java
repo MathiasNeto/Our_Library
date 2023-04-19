@@ -30,6 +30,6 @@ public class TeacherDTO {
             telephone = teacher.getContactList().get(i).getTelephone();
         }
         area = String.valueOf(teacher.getCourse().getArea());
-        name_Course = teacher.getCourse().getName_Course();
+        name_Course = teacher.getCourse().getName();
     }
 }

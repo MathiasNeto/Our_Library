@@ -22,10 +22,12 @@ public class Loan { //Emprestimo
 //    @NotNull(message = "the teacher field mus not be null")
     @OneToOne
     private Teacher teacher;
-    @NotNull(message = "the loan_date field must not be null")
     private LocalDate loanDate;
     @NotNull(message = "the book field mus not be null")
     @OneToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+    private LocalDate data_devolution;
+
 }

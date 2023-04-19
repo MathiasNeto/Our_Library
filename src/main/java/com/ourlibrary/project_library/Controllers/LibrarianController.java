@@ -2,6 +2,7 @@ package com.ourlibrary.project_library.Controllers;
 
 import com.ourlibrary.project_library.dto.BookDTO;
 import com.ourlibrary.project_library.dto.StudentDTO;
+import com.ourlibrary.project_library.dto.TeacherDTO;
 import com.ourlibrary.project_library.entities.*;
 import com.ourlibrary.project_library.services.*;
 import jakarta.validation.Valid;
@@ -45,7 +46,7 @@ public class LibrarianController {
     }
 
     @PostMapping(value = "/teacher")
-    public ResponseEntity<Teacher> insertTeacher(@Valid @RequestBody Teacher teacher) {
+    public ResponseEntity<TeacherDTO> insertTeacher(@Valid @RequestBody Teacher teacher) {
         return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.insert(teacher));
     }
 

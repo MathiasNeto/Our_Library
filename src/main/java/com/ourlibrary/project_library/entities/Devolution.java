@@ -20,6 +20,7 @@ public class Devolution {
 
     //@NotNull(message = "the devolution_date field must not be null")
     private LocalDate devolution_date;
-//    private Integer price;
+    private Double addition;
+    private Double price_Final;
 
 }

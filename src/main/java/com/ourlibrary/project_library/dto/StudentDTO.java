@@ -36,6 +36,6 @@ public class StudentDTO {
         }
         period_Course = student.getPeriod_course();
         area = String.valueOf(student.getCourse().getArea());
-        name_Course = student.getCourse().getName_Course();
+        name_Course = student.getCourse().getName();
     }
 }

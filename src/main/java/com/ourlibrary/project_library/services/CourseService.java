@@ -1,8 +1,7 @@
 package com.ourlibrary.project_library.services;
 
-import com.ourlibrary.project_library.entities.Contact;
 import com.ourlibrary.project_library.entities.Course;
-import com.ourlibrary.project_library.repositories.CourseRespository;
+import com.ourlibrary.project_library.repositories.CourseRepository;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
@@ -14,21 +13,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseService {
     private Validator validator;
-    private final CourseRespository courseRespository;
+    private final CourseRepository courseRepository;
 
     public Course insert( Course course){
-        return courseRespository.save(course);
+        return courseRepository.save(course);
     }
 
 
     public List<Course> findAll() {
-        return courseRespository.findAll();
+        return courseRepository.findAll();
     }
 
     public Course findById( Long id) {
-        return courseRespository.findById(id).orElseThrow(()->new ObjectNotFoundException("Id Not FOUND"));
+        return courseRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Id Not FOUND"));
     }
     public void delCourse(Long id){
-        courseRespository.deleteById(id);
+        courseRepository.deleteById(id);
     }
 }

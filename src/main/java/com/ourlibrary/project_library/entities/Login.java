@@ -19,6 +19,7 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     @NotBlank(message = "the registration field must not be blank")
     @NotNull(message = "the registration field must not be null")
     private String registration;
