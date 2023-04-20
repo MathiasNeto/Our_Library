@@ -27,7 +27,6 @@ O projeto Our Library tem as seguintes funcionalidades:
 * Exclusão de livros, biblioteca e usuários
 
 ## **Contribuindo**
-
 Se você quiser contribuir com o projeto, siga os passos abaixo:
 
 1. Faça um fork do repositório em sua conta do GitHub.
@@ -39,3 +38,48 @@ git checkout -b minha-branch
 
 ## **Licença**
 Este projeto ainda não está licenciado.
+
+
+
+
+-------------
+
+## **Our Library**
+Our Library is a back-end project for an online library that allows for the registration of books, authors, and users. It was developed in Java with the Spring framework.
+
+## **Installation**
+To run the project locally, follow the steps below:
+
+1. Clone the repository on your local machine:
+git clone https://github.com/MathiasNeto/Our_Library.git
+
+2. Import the project in your favorite Java IDE.
+
+3. Configure the database connection information in the application.properties file.
+
+4. Execute the OurLibraryApplication class to start the local server.
+
+You can now access the project at http://localhost:8080.
+
+## **Features**
+The Our Library project has the following features:
+
+* Book registration
+* User registration
+* Library registration
+* Perform lending and returns
+* Viewing books, loans, and users
+* Editing books, library, and users
+* Deletion of books, library, and users
+
+## **Contributing**
+If you want to contribute to the project, follow the steps below:
+
+1. Fork the repository to your GitHub account.
+2. Clone the fork on your local machine.
+3. Create a new branch for your changes:
+    git checkout -b my-branch
+4. Make your changes and submit a Pull Request.
+
+## **License**
+This project is not yet licensed.
