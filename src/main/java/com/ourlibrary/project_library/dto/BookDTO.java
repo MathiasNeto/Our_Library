@@ -7,12 +7,10 @@ import lombok.Data;
 
 public class BookDTO {
     private String name;
+    private Boolean isAvailable;
 
-    private String isbn;
-    private String isAvailable;
     public BookDTO(Book book){
         name = book.getName();
-        isbn = book.getIsbn();
-        isAvailable = book.getIsAvailable().toString();
+        isAvailable = book.getIsAvailable();
     }
 }

@@ -1,5 +1,7 @@
 package com.ourlibrary.project_library.Controllers;
 
+import com.ourlibrary.project_library.dto.LibrarianDTO;
+import com.ourlibrary.project_library.dto.LibraryDTO;
 import com.ourlibrary.project_library.entities.Librarian;
 import com.ourlibrary.project_library.entities.Library;
 import com.ourlibrary.project_library.services.LibrarianService;
@@ -17,17 +19,17 @@ public class Adm {
     private final LibrarianService librarianService;
     private final LibraryService libraryService;
     @PostMapping(value = "/library")
-    public ResponseEntity<Library> save(@RequestBody @Valid Library library) {
+    public ResponseEntity<LibraryDTO> save(@RequestBody @Valid Library library) {
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryService.insert(library));
     }
 
     @GetMapping(value = "/getLibrary/{id}")
     public ResponseEntity<Library> getAllLibrary(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(libraryService.getAll(id));
+        return ResponseEntity.status(HttpStatus.OK).body(libraryService.getLibrary(id));
     }
 
     @PostMapping(value = "/Librarian")
-    public ResponseEntity<Librarian> save(@RequestBody @Valid Librarian librarian){
+    public ResponseEntity<LibrarianDTO> save(@RequestBody @Valid Librarian librarian){
         return ResponseEntity.status(HttpStatus.OK).body(librarianService.insert(librarian));
     }
 

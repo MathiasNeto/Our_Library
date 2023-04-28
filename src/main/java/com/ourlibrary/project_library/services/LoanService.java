@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.services;
 
+import com.ourlibrary.project_library.dto.LoanDTO;
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Loan;
@@ -23,22 +24,24 @@ public class LoanService {
     private final StudentRepository studentRepository;
     private final DevolutionRepository devolutionRepository;
 
-    public Loan insert(Loan loan){
+    public LoanDTO insert(Loan loan){
 
         Book book = bookRepository.findByIsbn(loan.getBook().getIsbn())
                 .orElseThrow(()-> new ObjectNotFoundException("Book not found"));
-        Student student = loan.getStudent();
-        studentRepository.findById(student.getId()).orElseThrow(()->new ObjectNotFoundException("Student which id = "+ loan.getStudent()
+        Student student = studentRepository.findById(loan.getStudent().getId()).orElseThrow(()->new ObjectNotFoundException("Student which id = "+ loan.getStudent()
                 .getId()+" not found"));
-
+        loan.setStudent(student);
         if (!book.getIsAvailable()){ //Verifica se o livro nao esta disponivel, se tiver disponivel o if nao entra
             throw new ObjectNotFoundException("Book is not available for loan");
         }
+        loan.setBook(book);
         loan.setLoanDate(LocalDate.now());
-        loan.setData_devolution(loan.getLoanDate().plusDays(5));
+        loan.setDate_devolution(loan.getLoanDate().plusDays(5));
         book.setIsAvailable(false);
         bookRepository.save(book);
-        return loanRepository.save(loan);
+        loan.setStatus("loaned");
+        loanRepository.save(loan);
+        return new LoanDTO(loan);
 
     }
     public List<Loan> findAll() {

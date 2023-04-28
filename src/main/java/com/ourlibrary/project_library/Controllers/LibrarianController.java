@@ -1,6 +1,7 @@
 package com.ourlibrary.project_library.Controllers;
 
 import com.ourlibrary.project_library.dto.BookDTO;
+import com.ourlibrary.project_library.dto.LoanDTO;
 import com.ourlibrary.project_library.dto.StudentDTO;
 import com.ourlibrary.project_library.dto.TeacherDTO;
 import com.ourlibrary.project_library.entities.*;
@@ -79,7 +80,7 @@ public class LibrarianController {
 
 
     @PostMapping(value = "/book")
-    public ResponseEntity<Book> insertBook(@Valid @RequestBody Book book) {
+    public ResponseEntity<BookDTO> insertBook(@Valid @RequestBody Book book) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.insert(book));
     }
 
@@ -109,7 +110,7 @@ public class LibrarianController {
 
 
     @PostMapping(value = "/loan")
-    public ResponseEntity<Loan> accomplish(@RequestBody @Valid Loan loan) {
+    public ResponseEntity<LoanDTO> accomplish(@RequestBody @Valid Loan loan) {
         return ResponseEntity.status(HttpStatus.OK).body(loanService.insert(loan));
     }
 

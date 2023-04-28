@@ -12,7 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Loan { //Emprestimo
+public class Loan {
+    public Double value; //Emprestimo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +28,7 @@ public class Loan { //Emprestimo
     @OneToOne
     @JoinColumn(name = "book_id")
     private Book book;
-
-    private LocalDate data_devolution;
+    private String status;
+    private LocalDate date_devolution;
 
 }

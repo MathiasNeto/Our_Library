@@ -21,13 +21,14 @@ public class BookService {
 
 
 
-    public Book insert(Book book)  {
+    public BookDTO insert(Book book)  {
 
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new ObjetDuplicator("ISBN duplicator: " + book.getIsbn());
         }
+        bookRepository.save(book);
+        return new BookDTO(book);
 
-            return bookRepository.save(book);
     }
 
     public List<Book> findAll(Book book) {

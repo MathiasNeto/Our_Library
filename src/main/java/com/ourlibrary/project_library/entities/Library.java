@@ -21,12 +21,15 @@ public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "the library_name field must not be blank")
     @NotNull(message = "the library_name field must not be null")
     private String library_name;
+
     @NotBlank(message = "the institution_name field must not be blank")
     @NotNull(message = "the institution_name field must not be null")
     private String institution_name;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Librarian_id")
     private Librarian librarian;
