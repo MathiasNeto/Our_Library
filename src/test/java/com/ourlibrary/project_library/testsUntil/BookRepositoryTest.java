@@ -1,4 +1,4 @@
-package com.ourlibrary.project_library;
+package com.ourlibrary.project_library.testsUntil;
 
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.enuns.Area;
@@ -7,17 +7,17 @@ import com.ourlibrary.project_library.services.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-@Transactional
+
+@SpringBootTest
 public class BookRepositoryTest {
+
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -46,7 +46,7 @@ public class BookRepositoryTest {
 
 
     @Test
-    public void givenExistingBook_whenEditBook_thenBookIsUpdated() { //given-when-then
+    public void givenExistingBook_whenEditBook_thenBookIsUpdated() { //given-when-then ou quando/equanto/entao
 
         this.book = new Book();
         book.setName("POO");
@@ -93,8 +93,9 @@ public class BookRepositoryTest {
 
         bookRepository.save(book);
 
-        List<Book> allBooks = bookService.findAll(book);
+        List<Book> allBooks = bookService.findAll();
 
         assertTrue(allBooks.contains(book));
     }
+
 }

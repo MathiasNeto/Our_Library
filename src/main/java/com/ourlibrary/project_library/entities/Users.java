@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public abstract class Users {
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Contact> contactList;
+    private List<Contact> contactList = new ArrayList<>();
 
 
     @OneToOne(cascade = CascadeType.ALL)

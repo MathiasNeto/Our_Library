@@ -85,8 +85,8 @@ public class LibrarianController {
     }
 
     @GetMapping(value = "/allBook")
-    public ResponseEntity<List<Book>> findAllBook(Book book) {
-        List<Book> bookList = bookService.findAll(book);
+    public ResponseEntity<List<Book>> findAllBook() {
+        List<Book> bookList = bookService.findAll();
         return ResponseEntity.ok(bookList);
     }
 

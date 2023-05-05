@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class BookService {
 
     }
 
-    public List<Book> findAll(Book book) {
+    public List<Book> findAll() {
         return bookRepository.findAll();
     }
 
@@ -41,6 +42,14 @@ public class BookService {
                 "id " + isbn +
                 " Not FOUND"));
         return new BookDTO(book);
+    }
+
+    public List<Book> findAllBooksIsAvailable(boolean b){
+        Book book = bookRepository.isAvailable(b).orElseThrow(()->new ObjectNotFoundException("No content"));
+
+        List<Book> books = Arrays.asList(book);
+
+        return books;
     }
 
     public void deleteBookById(String isbn) {

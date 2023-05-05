@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+
 @Entity
 @Table(name = "tb_loan")
 @AllArgsConstructor
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Data
 public class Loan {
     public Double value; //Emprestimo
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +32,6 @@ public class Loan {
     private Book book;
     private String status;
     private LocalDate date_devolution;
+
 
 }
