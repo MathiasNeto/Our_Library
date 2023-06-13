@@ -91,7 +91,7 @@ public class LibrarianController {
         return ResponseEntity.ok(bookList);
     }
 
-    @GetMapping(value = "/getBooks/{isbn}")
+    @GetMapping(value = "/getBook/{isbn}")
     public ResponseEntity<BookDTO> getBook(@PathVariable String isbn) {
         return ResponseEntity.ok(bookService.findById(isbn));
     }

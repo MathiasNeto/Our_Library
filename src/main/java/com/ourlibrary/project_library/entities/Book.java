@@ -21,7 +21,7 @@ public class Book {
     @Column(name = "area")
     @Enumerated(EnumType.STRING)
     private Area area;
-    @NotNull(message = "the isAvailable field must not be null")
+
     private Boolean isAvailable;
 
 }

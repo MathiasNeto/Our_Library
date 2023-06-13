@@ -27,6 +27,7 @@ public class BookService {
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new ObjetDuplicator("ISBN duplicator: " + book.getIsbn());
         }
+        book.setIsAvailable(true);
         bookRepository.save(book);
         return new BookDTO(book);
 
