@@ -19,7 +19,6 @@ public abstract class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull(message = "the cpf field must not be null")
     @CPF(message = "Provide a valid CPF")
     @Column(unique = true)
@@ -40,10 +39,8 @@ public abstract class Users {
     @Embedded
     private Address address;
 
-
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Contact> contactList = new ArrayList<>();
-
 
     @OneToOne(cascade = CascadeType.ALL)
     private Login login;

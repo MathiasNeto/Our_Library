@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/Adm")
-public class Adm {
+public class  Adm {
     private final LibrarianService librarianService;
     private final LibraryService libraryService;
     @PostMapping(value = "/library")

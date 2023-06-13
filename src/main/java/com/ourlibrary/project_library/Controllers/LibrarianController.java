@@ -26,6 +26,7 @@ public class LibrarianController {
     private final LoanService loanService;
     private final TeacherService teacherService;
     private final DevolutionService devolutionService;
+    private final LoginService loginService;
 
     private Validator validator;
 
@@ -118,5 +119,16 @@ public class LibrarianController {
     public ResponseEntity<Devolution> accomplish(@RequestBody @Valid Devolution devolution) {
         return ResponseEntity.status(HttpStatus.OK).body(devolutionService.insert(devolution));
     }
+    @PostMapping(value = "/login")
+    public ResponseEntity login (@RequestBody Login login ){
+        try {
+            Users p = loginService.search(login.getEmail(),login.getPassword());
+            System.out.println(p.getId());
+            return ResponseEntity.ok(p);
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+}
 
+
+}
 }

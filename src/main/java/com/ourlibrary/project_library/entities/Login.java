@@ -1,5 +1,6 @@
 package com.ourlibrary.project_library.entities;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,10 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "the name_user field must not be blank")
+    @NotNull(message = "the name_user field must not be null")
+    @Size(min = 3)
+    private String email;
     @Column(unique = true)
     @NotBlank(message = "the registration field must not be blank")
     @NotNull(message = "the registration field must not be null")
