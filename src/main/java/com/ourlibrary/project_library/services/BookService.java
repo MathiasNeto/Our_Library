@@ -55,11 +55,21 @@ public class BookService {
 
     public void deleteBookById(String isbn) {
         Optional<Book> bookOptional = bookRepository.findById(isbn);
+        try{
+            bookRepository.delete(bookOptional.get());
+        }catch (Exception ex){
+            throw new InternalError();
+        }
+
+
+        /*
+        Optional<Book> bookOptional = bookRepository.findById(isbn);
         if (bookOptional.isPresent()) {
             bookRepository.delete(bookOptional.get());
         } else {
             throw new EntityNotFoundException("Book with id " + isbn + " not found.");
         }
+         */
     }
 
     public Book updateBook(Book updatedBook) {

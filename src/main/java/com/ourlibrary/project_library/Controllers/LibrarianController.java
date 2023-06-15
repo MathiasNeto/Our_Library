@@ -85,7 +85,7 @@ public class LibrarianController {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.insert(book));
     }
 
-    @GetMapping(value = "/allBook")
+    @GetMapping(value = "/allBooks")
     public ResponseEntity<List<Book>> findAllBook() {
         List<Book> bookList = bookService.findAll();
         return ResponseEntity.ok(bookList);
@@ -96,10 +96,18 @@ public class LibrarianController {
         return ResponseEntity.ok(bookService.findById(isbn));
     }
 
-    @DeleteMapping("/books/{isbn}")
-    public ResponseEntity<Void> deleteBook(@PathVariable String isbn) {
+    @DeleteMapping("/book/{isbn}")
+    public ResponseEntity deleteBook(@PathVariable String isbn) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        /*
         bookService.deleteBookById(isbn);
         return ResponseEntity.noContent().build();
+
+         */
     }
 
     @PutMapping("/bookUpdate/{isbn}")
