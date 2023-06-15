@@ -10,5 +10,7 @@ public interface BookRepository extends JpaRepository<Book,String> {
 
     Optional<Book> isAvailable(Boolean aBoolean);
 
+    //@Query("SELECT b FROM Book b WHERE b.isbn =:isbn AND b.area =:area and b.name =:name")
+    //Optional<Book> findBookBy(String isbn, Area area, String name);
     Optional<Book> findByIsbn(String isbn);
 }

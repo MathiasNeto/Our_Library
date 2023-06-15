@@ -93,27 +93,23 @@ public class LibrarianController {
 
     @GetMapping(value = "/getBook/{isbn}")
     public ResponseEntity<BookDTO> getBook(@PathVariable String isbn) {
-        return ResponseEntity.ok(bookService.findById(isbn));
+            return ResponseEntity.ok(bookService.findById(isbn));
     }
 
-    @DeleteMapping("/book/{isbn}")
-    public ResponseEntity deleteBook(@PathVariable String isbn) {
+    @DeleteMapping("/delete_book/{isbn}")
+    public ResponseEntity deleteBook(@PathVariable("isbn") String isbn) {
         try{
+            bookService.deleteBookById(isbn);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch(Exception ex){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        /*
-        bookService.deleteBookById(isbn);
-        return ResponseEntity.noContent().build();
 
-         */
     }
 
     @PutMapping("/bookUpdate/{isbn}")
-    public ResponseEntity<Book> updateBook(@PathVariable String isbn, @Valid @RequestBody Book book) {
-        book.setIsbn(isbn);
-        Book updatedBook = bookService.updateBook(book);
+    public ResponseEntity<Book> updateBook(@PathVariable String isbn) {
+        Book updatedBook = bookService.updateBook(isbn);
         return ResponseEntity.ok(updatedBook);
     }
 

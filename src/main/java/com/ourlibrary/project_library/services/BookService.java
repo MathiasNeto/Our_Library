@@ -5,20 +5,20 @@ import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.repositories.BookRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.ourlibrary.project_library.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final LoanRepository loanRepository;
 
 
 
@@ -54,12 +54,22 @@ public class BookService {
     }
 
     public void deleteBookById(String isbn) {
-        Optional<Book> bookOptional = bookRepository.findById(isbn);
-        try{
-            bookRepository.delete(bookOptional.get());
-        }catch (Exception ex){
-            throw new InternalError();
+        try {
+            Book book = bookRepository.findById(isbn)
+                    .orElseThrow(() -> new ObjectNotFoundException("Book not found"));
+
+            if (loanRepository.existsByBook(book)) {
+                throw new IllegalStateException("Cannot delete the book because it is referenced in loans.");
+            }
+
+            bookRepository.deleteById(isbn);
+
+        } catch (IllegalStateException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException("Failed to delete the book.", ex);
         }
+    }
 
 
         /*
@@ -70,15 +80,14 @@ public class BookService {
             throw new EntityNotFoundException("Book with id " + isbn + " not found.");
         }
          */
-    }
 
-    public Book updateBook(Book updatedBook) {
-        Book existingBook = bookRepository.findByIsbn(updatedBook.getIsbn())
-                .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + updatedBook.getIsbn() + " not found."));
 
-        existingBook.setName(updatedBook.getName());
-        existingBook.setArea(updatedBook.getArea());
-        existingBook.setIsbn(updatedBook.getIsbn());
+    public Book updateBook(String isbn) {
+        Book existingBook = bookRepository.findByIsbn(isbn)
+                .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + isbn + " not found."));
+
+        existingBook.setName(existingBook.getName());
+        existingBook.setArea(existingBook.getArea());
 
         return bookRepository.save(existingBook);
     }
