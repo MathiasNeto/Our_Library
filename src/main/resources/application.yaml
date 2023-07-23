@@ -1,14 +1,8 @@
 spring:
+  profiles:
+    active: ${APP_PROFILE:test}
   jpa:
-    database: POSTGRESQL
-    show-sql: false
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: jdbc:postgresql://localhost:5432/OurLibrary
-    username: postgres
-    password: matias1234
-    driverClassName: org.postgresql.Driver
-  sql:
-    init:
-      platform: postgres
+    open-in-view: false
+
+#cors:
+#  origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}

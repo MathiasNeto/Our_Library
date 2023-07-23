@@ -1,7 +1,7 @@
 package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Contact;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.repositories.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

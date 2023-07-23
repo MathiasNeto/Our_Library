@@ -2,8 +2,8 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.dto.BookDTO;
 import com.ourlibrary.project_library.entities.Book;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
-import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.repositories.BookRepository;
 import com.ourlibrary.project_library.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class BookService {
 
 
 
-    public BookDTO insert(Book book)  {
+    public BookDTO insert(BookDTO book)  {
 
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new ObjetDuplicator("ISBN duplicator: " + book.getIsbn());
@@ -82,14 +82,14 @@ public class BookService {
          */
 
 
-    public Book updateBook(String isbn) {
-        Book existingBook = bookRepository.findByIsbn(isbn)
-                .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + isbn + " not found."));
-
-        existingBook.setName(existingBook.getName());
-        existingBook.setArea(existingBook.getArea());
-
-        return bookRepository.save(existingBook);
-    }
+//    public Book updateBook(Book book) {
+////        Book existingBook = bookRepository.findByIsbn(b)
+////                .orElseThrow(() -> new ObjectNotFoundException("Book with ISBN " + isbn + " not found."));
+////
+////        existingBook.setName(existingBook.getName());
+////        existingBook.setArea(existingBook.getArea());
+//
+//        return bookRepository.save(existingBook);
+//    }
 
 }

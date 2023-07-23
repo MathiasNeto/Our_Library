@@ -2,7 +2,7 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.dto.LibraryDTO;
 import com.ourlibrary.project_library.entities.Book;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Library;
 import com.ourlibrary.project_library.entities.Student;
 import com.ourlibrary.project_library.entities.Teacher;

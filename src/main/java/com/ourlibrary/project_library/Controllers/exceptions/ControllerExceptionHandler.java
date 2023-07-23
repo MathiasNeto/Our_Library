@@ -1,7 +1,7 @@
 package com.ourlibrary.project_library.Controllers.exceptions;
 
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
-import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.exceptions.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

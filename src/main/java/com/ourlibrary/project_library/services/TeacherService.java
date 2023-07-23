@@ -2,8 +2,8 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.dto.TeacherDTO;
 import com.ourlibrary.project_library.entities.Course;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
-import com.ourlibrary.project_library.entities.Excetions.ObjetDuplicator;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjetDuplicator;
 import com.ourlibrary.project_library.entities.Teacher;
 import com.ourlibrary.project_library.repositories.ContactRepository;
 import com.ourlibrary.project_library.repositories.CourseRepository;

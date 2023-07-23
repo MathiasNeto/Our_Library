@@ -29,7 +29,8 @@ public class Contact {
     @NotNull(message = "the telephone fiel  d must not be null")
     private String telephone;
 
-    @ManyToOne//(fetch = FetchType.EAGER)
+    @ManyToOne//(fetch = FetchType.EAGER) colocar isso aqui nao é uma boa pratica, o que seria uma boa
+    //é colocar 
     @JsonIgnore()
     @JoinColumn(name = "user_id")
     private Users user;

@@ -2,7 +2,7 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Course;
 import com.ourlibrary.project_library.repositories.CourseRepository;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

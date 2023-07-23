@@ -107,11 +107,11 @@ public class LibrarianController {
 
     }
 
-    @PutMapping("/bookUpdate/{isbn}")
-    public ResponseEntity<Book> updateBook(@PathVariable String isbn) {
-        Book updatedBook = bookService.updateBook(isbn);
-        return ResponseEntity.ok(updatedBook);
-    }
+//    @PutMapping("/bookUpdate")
+//    public ResponseEntity<Book> updateBook(@RequestBody Book book) {
+//        Book updatedBook = bookService.updateBook(book);
+//        return ResponseEntity.ok(updatedBook);
+//    }
 
 
     @PostMapping(value = "/loan")

@@ -1,4 +1,4 @@
-package com.ourlibrary.project_library.entities.Excetions;
+package com.ourlibrary.project_library.services.Excetions;
 
 public class ObjetDuplicator extends RuntimeException {
     public ObjetDuplicator(String msg){

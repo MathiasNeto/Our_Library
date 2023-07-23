@@ -10,12 +10,15 @@ import lombok.Data;
 @Data
 @Table(name = "tb_book")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank(message = "the book_name field must not be blank")
     @NotNull(message = "the book_name field must not be null")
     private String name;
 
     @Column(unique = true)
-    @Id
     private String isbn;
 
     @Column(name = "area")

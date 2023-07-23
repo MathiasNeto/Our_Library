@@ -2,7 +2,7 @@ package com.ourlibrary.project_library.services;
 
 import com.ourlibrary.project_library.entities.Book;
 import com.ourlibrary.project_library.entities.Devolution;
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Loan;
 import com.ourlibrary.project_library.repositories.BookRepository;
 import com.ourlibrary.project_library.repositories.DevolutionRepository;

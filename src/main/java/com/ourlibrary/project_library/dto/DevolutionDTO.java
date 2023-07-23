@@ -2,14 +2,14 @@ package com.ourlibrary.project_library.dto;
 
 import com.ourlibrary.project_library.entities.Devolution;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class DevolutionDTO {
     private String name_user;
     private BookDTO bookDTO;
@@ -23,4 +23,5 @@ public class DevolutionDTO {
         this.name_user = devolution.getLoan().getStudent().getName_user();
         this.status = devolution.getStatus();
     }
+
 }

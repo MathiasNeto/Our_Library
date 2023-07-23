@@ -1,6 +1,6 @@
 package com.ourlibrary.project_library.services;
 
-import com.ourlibrary.project_library.entities.Excetions.ObjectNotFoundException;
+import com.ourlibrary.project_library.services.Excetions.ObjectNotFoundException;
 import com.ourlibrary.project_library.entities.Login;
 import com.ourlibrary.project_library.entities.Users;
 import com.ourlibrary.project_library.repositories.LoginRepository;

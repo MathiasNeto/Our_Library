@@ -7,6 +7,4 @@ import jakarta.persistence.Table;
 @Table(name = "tb_librarian")
 public class Librarian extends Users {
 
-
-
 }
